@@ -2,7 +2,6 @@
   <div id="app">
     <Navbar />
     <!--<Home />-->
-    <Login />
     <router-view />
   </div>
 </template>

@@ -4,8 +4,8 @@ import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import Home from './components/Home.vue'
-import Login from './components/Login.vue'
+import Home from './components/Home'
+import Login from './components/Login'
 import Navbar from './components/Navbar.vue'
 
 Vue.use(BootstrapVue)
@@ -16,8 +16,16 @@ Vue.config.productionTip = false
 Vue.component('Navbar',Navbar);
 
 const routes = [
-  {path:'/',component:Home},
-  {path: '/login',component:Login}
+  {
+    path:'/',
+    name: '/',
+    component: Home
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component:Login
+  }
 
 ];
 
