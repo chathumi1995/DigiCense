@@ -1,7 +1,5 @@
 <template>
     <b-container id="contain"> 
-    
-    
       <b-row align-h="center" class="login">  
                   
           <b-col cols="6">
