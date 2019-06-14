@@ -2,7 +2,7 @@
     <div>
       
      <b-navbar toggleable="lg" type="dark" class="nav-background">      
-         <b-navbar-brand href="#"> <img src="‪assets/digicense.png" id="logo">
+         <b-navbar-brand href="#"> <img src="\‪assets\digicense.png" id="logo">
                 DigiCense
                 
         </b-navbar-brand>             
