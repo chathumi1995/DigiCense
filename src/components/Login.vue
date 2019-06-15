@@ -1,31 +1,26 @@
 <template>
     <b-container id="contain"> 
-      <b-row align-h="center" class="login">  
-                  
+      <b-row align-h="center" class="login">                   
           <b-col cols="6">
            <b-card class="login1">
               <h3 class="text-center">Login</h3>
-                <b-form @submit="onSubmit"  v-if="show">
-                <!--user -->
-                <div>
-                  <b-form-input
-                  
-                                           
-                      id="username"
+                <b-form @submit="onSubmit">
+                <!--id -->
+                <div :class="{invalid: $v.id.$error}"> 
+                  <b-form-input                 
+                      id="id"
                       type="text"
-                      v-model="form.name"
+                      v-model="id"
+                      @blur="$v.id.$touch()"
                       required
-                      placeholder="User Name"
+                      placeholder="User ID"
                     ></b-form-input>
-                    
                 </div>
                 <br>
                 <!--password -->
-                <div class="{invalid: $v.password.$error}" >
-              
+                <div :class="{invalid: $v.password.$error}" >
                   <!--<p v-if="!$v.password.minLength">The input must be a proper email!</p>-->
-                  <b-form-input 
-                    
+                  <b-form-input                    
                     id="password"
                     type="password"
                     @blur="$v.password.$touch()"
@@ -33,12 +28,7 @@
                     :state="validation"                 
                     required           
                     placeholder="Password"
-                    class="form-control" 
-                  ></b-form-input>
-
-                  
-                   
-                    
+                  ></b-form-input>  
                 </div>
                 
                  <br>
@@ -48,9 +38,6 @@
                       <div>
                         <b-button type="submit" variant="warning">Login</b-button>
                       </div>
-                      
-           
-
                       <div>
                         <a href="#"><p class="text-dark">Forgot Password?</p></a>
                       </div>
@@ -64,51 +51,48 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, minLength} from 'vuelidate/lib/validators'
+import { required, minLength, maxLength} from 'vuelidate/lib/validators'
 
-    export default {
-       mixins: [validationMixin],
-       
-        data() {
-          return {
-            form: {
-              username: '',
-              password: '',        
-            },
-            show: true
-          }
-    },
-    validations:{
-        password:{
-            required,
-            minLength: minLength(8)
-        },
-        username:{
-            required,
-        }
-    },
-    methods: {
-      onSubmit(evt) {
-        evt.preventDefault()
-        alert(JSON.stringify(this.form))
+export default {
+  mixins: [validationMixin],
+  
+  data() {
+      return {
+        
+        id: '',
+        password: '',        
       }
-    },
-    
-     
-    
-    
-      /*onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.username = ''
-        this.form.password = ''
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      }*/
+  },
+  validations:{
+      password:{
+          required,
+          minLength: minLength(7)
+      },
+      id:{
+          required,
+          minLength: minLength(10),
+          maxLength: maxLength(10)
+      }
+  },
+  methods: {
+    onSubmit(evt) {
+      evt.preventDefault()
+      alert(JSON.stringify(this.form))
     }
+},
+
+  /*onReset(evt) {
+    evt.preventDefault()
+    // Reset our form values
+    this.form.username = ''
+    this.form.password = ''
+    // Trick to reset/clear native browser form validation state
+    this.show = false
+    this.$nextTick(() => {
+      this.show = true
+    })
+  }*/
+}
   
 </script>
 
@@ -116,9 +100,7 @@ import { required, minLength} from 'vuelidate/lib/validators'
     #contain{
         padding: 150px;
     }
-    .invalid b-form-input{ 
-      border: 1px solid yellow;
-      background-color: lightyellow;
-
+    .invalid input{ 
+      border: 1px solid red;
     }
 </style>
