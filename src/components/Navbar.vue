@@ -2,10 +2,8 @@
     <div>
       
      <b-navbar toggleable="lg" type="dark" class="nav-background">      
-         <b-navbar-brand href="#"> <img src="\‪assets\digicense.png" id="logo">
-                DigiCense
-                
-        </b-navbar-brand>             
+         <img src="../assets/digicense.png" id="logo">
+                           
                 <b-navbar-nav class="ml-auto">       
                     <b-nav-item to="/"><p class="text-white bg-dark">Home</p></b-nav-item>
                     <!--<b-link to="/Home"><p class="text-white bg-dark">Home</p></b-link>-->
@@ -29,8 +27,8 @@
     background: #353535;
   }
   #logo{
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
   }
   
 </style>
