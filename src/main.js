@@ -6,9 +6,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Navbar from './components/Navbar.vue'
 import router from './router'
 import Vuelidate from 'vuelidate'
+//import axios from 'axios'
 
 //import { store } from './store/store';
-
+//axios.defaults.baseURL ='https://digicense-api.herokuapp.com' 
 Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
 

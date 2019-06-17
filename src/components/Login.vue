@@ -15,11 +15,13 @@
                       required
                       placeholder="User ID"
                     ></b-form-input>
+                    <p v-if="!$v.id.minLength">Your user ID must be 10 characters.</p>
+                    <p v-if="!$v.id.maxLength">Your user ID must be 10 characters.</p>
                 </div>
                 <br>
                 <!--password -->
                 <div :class="{invalid: $v.password.$error}" >
-                  <!--<p v-if="!$v.password.minLength">The input must be a proper email!</p>-->
+                  
                   <b-form-input                    
                     id="password"
                     type="password"
@@ -28,7 +30,9 @@
                     :state="validation"                 
                     required           
                     placeholder="Password"
+                    @input="password_check"
                   ></b-form-input>  
+                  <p v-if="!$v.password.minLength">Must be at least 7 characters</p>                
                 </div>
                 
                  <br>
@@ -36,7 +40,7 @@
                 
                     <div class="d-flex justify-content-between">
                       <div>
-                        <b-button type="submit" variant="warning">Login</b-button>
+                        <b-button @click="onSubmit" variant="warning">Login</b-button>
                       </div>
                       <div>
                         <a href="#"><p class="text-dark">Forgot Password?</p></a>
@@ -50,17 +54,19 @@
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
+
 import { required, minLength, maxLength} from 'vuelidate/lib/validators'
+import axios from '../axios-auth'
 
 export default {
-  mixins: [validationMixin],
-  
+ 
   data() {
+   
       return {
         
         id: '',
-        password: '',        
+        password: '',    
+       
       }
   },
   validations:{
@@ -75,23 +81,23 @@ export default {
       }
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault()
-      alert(JSON.stringify(this.form))
-    }
-},
-
-  /*onReset(evt) {
-    evt.preventDefault()
-    // Reset our form values
-    this.form.username = ''
-    this.form.password = ''
-    // Trick to reset/clear native browser form validation state
-    this.show = false
-    this.$nextTick(() => {
-      this.show = true
-    })
-  }*/
+   
+      onSubmit(){
+        const formData={
+          id:this.id,
+          password:this.password,
+        }
+        console.log(formData)
+        axios.post('/users/login',JSON.stringify({
+          id: formData.id,
+          password: formData.password,
+        }))
+          .then(res => console.log(res))
+          .catch(error => console.log(error))
+          
+      }
+   
+  },  
 }
   
 </script>
