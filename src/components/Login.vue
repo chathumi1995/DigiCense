@@ -40,7 +40,7 @@
                 
                     <div class="d-flex justify-content-between">
                       <div>
-                        <b-button @click="onSubmit" variant="warning">Login</b-button>
+                        <b-button @click.prevent="onSubmit" variant="warning">Login</b-button>
                       </div>
                       <div>
                         <a href="#"><p class="text-dark">Forgot Password?</p></a>
@@ -56,14 +56,14 @@
 <script>
 
 import { required, minLength, maxLength} from 'vuelidate/lib/validators'
-import axios from '../axios-auth'
+import axios from 'axios'
+import qs from 'qs'
 
 export default {
  
   data() {
    
       return {
-        
         id: '',
         password: '',    
        
@@ -87,13 +87,14 @@ export default {
           id:this.id,
           password:this.password,
         }
-        console.log(formData)
-        axios.post('/users/login',JSON.stringify({
-          id: formData.id,
-          password: formData.password,
-        }))
-          .then(res => console.log(res))
-          .catch(error => console.log(error))
+        console.log({
+          id: formData.id, 
+          password: formData.password
+        })
+        axios.post('/users/login', JSON.stringify({
+          id: formData.id, 
+          password: formData.password
+        })).then(res => console.log(res)).catch(error => console.log("From frontend", error))
           
       }
    
