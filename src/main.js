@@ -21,7 +21,7 @@ Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
 
-Vue.component('Navbar',Navbar);
+Vue.component('Navbar',Navbar); //import Navbar
 
 new Vue({
   router,

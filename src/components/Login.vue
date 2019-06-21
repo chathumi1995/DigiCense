@@ -1,10 +1,11 @@
 <template>
     <b-container id="contain"> 
       <b-row align-h="center" class="login">                   
-          <b-col cols="6">
+          <b-col sm="6" lg="6">
            <b-card class="login1">
               <h3 class="text-center">Login</h3>
                 <b-form @submit="onSubmit">
+
                 <!--id -->
                 <div :class="{invalid: $v.id.$error}"> 
                   <b-form-input                 
@@ -19,15 +20,14 @@
                     <p v-if="!$v.id.maxLength">Your user ID must be 10 characters.</p>
                 </div>
                 <br>
+
                 <!--password -->
-                <div :class="{invalid: $v.password.$error}" >
-                  
+                <div :class="{invalid: $v.password.$error}" >                 
                   <b-form-input                    
                     id="password"
                     type="password"
                     @blur="$v.password.$touch()"
-                    v-model="password"                     
-                    :state="validation"                 
+                    v-model="password"                                                          
                     required           
                     placeholder="Password"
                     @input="password_check"
@@ -43,7 +43,7 @@
                         <b-button @click.prevent="onSubmit" variant="warning">Login</b-button>
                       </div>
                       <div>
-                        <a href="#"><p class="text-dark">Forgot Password?</p></a>
+                        <b-button variant="outline-light" to="/reset"><p class="text-dark">Forgot Password?</p></b-button>
                       </div>
                     </div>    
                 </b-form>
@@ -56,8 +56,8 @@
 <script>
 
 import { required, minLength, maxLength} from 'vuelidate/lib/validators'
-import axios from 'axios'
-import qs from 'qs'
+//import axios from 'axios'
+//import qs from 'qs'
 
 export default {
  
