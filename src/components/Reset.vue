@@ -4,42 +4,42 @@
             <b-row align-h="center" class="reset">
                 <b-col sm="6" lg="6">
                     <b-card class="reset1">
-                        <h3 class="text-center">Forget Password</h3>
+                        <h3 class="text-center"><small class="text-muted">Reset Password</small></h3>
                         <br>
-                            <b-form @submit="onSubmit">
-                                <div :class="{invalid: $v.password.$error}">
+                            <b-form>
+                                
                                     <b-form-input                    
                                         id="password"
                                         type="password"
                                         @blur="$v.password.$touch()"
-                                        v-model="password"                     
-                                        :state="validation"                 
-                                        required           
+                                        v-model="password"                                   
+                                        required   
+                                        :state= "validatePassword"         
                                         placeholder="Password"
                                         @input="password_check"
                                     ></b-form-input>  
-                                    <p v-if="!$v.password.minLength">Must be at least 7 characters</p>
-                                    <!--<p class="frmValidation" :class="{'frmValidation--passed' :has_uppercase }">Has a capital letter</p>
-                                    <p class="frmValidation" :class="{'frmValidation--passed' :has_lowercase }">Has a lowercase letter</p>
-                                    <p class="frmValidation" :class="{'frmValidation--passed' : has_number }">Has a number</p>
-                                    <p class="frmValidation" :class="{'frmValidation--passed' : has_special }">Has a special character</p>-->
-                                </div>
+                                    <p v-if="!$v.password.required && $v.password.$dirty">This field is required</p>
+                                    <p v-else-if="!$v.password.minLength ">Password should contain atleast 7 characters</p>
+                                    <p>Password strength: </p>
+                                    <password v-model="password" :strength-meter-only="true" :secureLength = "7"/>
                                 <br>
                                 <div :class="{invalid: $v.confirmPassword.$error}">
                                     <b-form-input                    
                                         id="confirmPassword"
                                         type="password"
-                                        @blur="$v.confirmPassword.$touch()"
+                                        @input="$v.confirmPassword.$touch()"
                                         v-model="confirmPassword"                     
-                                        :state="validation"                 
                                         required           
                                         placeholder="Confirm Password"
-                                        @input="password_check"
+                                        :state= "validateConfirmPassword"
+                                        :disabled = "!isValidPassword"
                                     ></b-form-input>  
+                                    <p v-if="!$v.confirmPassword.required && $v.confirmPassword.$dirty">This field is required</p>
+                                    <p v-else-if="!$v.confirmPassword.sameAs">Passwords do not match</p>
                                 </div>
                                 <br>
                                 <div class="d-flex justify-content-center">
-                                    <b-button id="save" @click.prevent="onSubmit" variant="warning">Save</b-button>
+                                    <b-button id="save" @click.prevent="onSubmit" variant="warning" :disabled="$v.password.$invalid || $v.confirmPassword.$invalid">Save</b-button>
                                 </div>
                             </b-form>
                     </b-card>
@@ -53,7 +53,9 @@
 
 
 <script>
+
 import { required, minLength, sameAs} from 'vuelidate/lib/validators'
+import Password from 'vue-password-strength-meter'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -61,13 +63,29 @@ export default {
     data() {
         
       return {        
-        password: '',    
+        password: null,    
         confirmPassword: '',
         has_number:    false,
         has_lowercase: false,
         has_uppercase: false,
         has_special:   false,
       }
+    },
+    components: { Password },
+    computed: {
+        validatePassword: function () {
+            if(!this.$v.password.$dirty)
+                return null
+            else  return !this.$v.password.$invalid
+        },
+        validateConfirmPassword: function () {
+            if(!this.$v.confirmPassword.$dirty)
+                return null
+            else  return !this.$v.confirmPassword.$invalid
+        },
+        isValidPassword: function () {
+            return !this.$v.password.$invalid
+        },
     },
     validations:{
       password:{
@@ -89,9 +107,8 @@ export default {
             this.has_lowercase = /[a-z]/.test(this.message);
             this.has_uppercase = /[A-Z]/.test(this.message);
             this.has_special   = /[!@#\$%\^\&*\)\(+=._-]/.test(this.message);
-        }
-    },
-    onSubmit(){
+        },
+        onSubmit: function () {
         const formData={
           confirmPassword:this.confirmPassword,
           password:this.password,
@@ -101,6 +118,8 @@ export default {
             password: formData.password
         })
     }
+    },
+    
 }
 </script>
 
@@ -111,5 +130,9 @@ export default {
     .invalid input{ 
       border: 1px solid red;
     }    
+    .frmValidation{font-size: 13px; }
+    .frmValidation--passed{color:#717b85;}
+    .frmIcon{color:#EB0029;}
+    .frmValidation--passed .frmIcon{color:#0fa140;}
 
 </style>

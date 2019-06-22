@@ -3,8 +3,8 @@
       <b-row align-h="center" class="login">                   
           <b-col sm="6" lg="6">
            <b-card class="login1">
-              <h3 class="text-center">Login</h3>
-                <b-form @submit="onSubmit">
+              <h3 class="text-center"><small class="text-muted">Login</small></h3>
+                <b-form>
 
                 <!--id -->
                 <div :class="{invalid: $v.id.$error}"> 
@@ -43,7 +43,7 @@
                         <b-button @click.prevent="onSubmit" variant="warning">Login</b-button>
                       </div>
                       <div>
-                        <b-button variant="outline-light" to="/reset"><p class="text-dark">Forgot Password?</p></b-button>
+                        <router-link to="/reset">Forgot Password?</router-link>
                       </div>
                     </div>    
                 </b-form>
@@ -56,8 +56,8 @@
 <script>
 
 import { required, minLength, maxLength} from 'vuelidate/lib/validators'
-//import axios from 'axios'
-//import qs from 'qs'
+import axios from 'axios'
+import qs from 'qs'
 
 export default {
  
