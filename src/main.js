@@ -8,6 +8,9 @@ import router from './router'
 import Vuelidate from 'vuelidate'
 import axios from 'axios'
 import qs from 'qs'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+Vue.use(Vuetify)
 
 //import { store } from './store/store';
 axios.defaults.baseURL ='https://digicense-api.herokuapp.com' 
@@ -21,8 +24,8 @@ Vue.use(Vuelidate)
 
 Vue.config.productionTip = false
 
-Vue.component('Navbar',Navbar); //import Navbar
-
+//Vue.component('Navbar',Navbar); //import Navbar
+//Vue.component('Navbar',Home);
 new Vue({
   router,
   //store,

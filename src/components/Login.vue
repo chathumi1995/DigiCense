@@ -36,16 +36,80 @@
                 </div>
                 
                  <br>
-                 <!--Button and forhet password -->
+                 <!--Button and forget password -->
                 
                     <div class="d-flex justify-content-between">
                       <div>
-                        <b-button @click.prevent="onSubmit" variant="warning">Login</b-button>
+                        <b-button @click.prevent="onSubmit" variant="warning" class="text-light">Login</b-button>
                       </div>
                       <div>
-                        <router-link to="/reset">Forgot Password?</router-link>
+                        <!--<router-link to="/verifyEmail">Forgot Password?</router-link>-->
+                        <b-button id="show-btn" variant="link" @click="$bvModal.show('bv-modal-example')">Forgot Password?</b-button>
+                        
+                          <b-modal id="bv-modal-example" hide-footer>
+                            
+                            <template slot="modal-title" >
+                              
+                              <div >
+                                <h3>Send Veification Code via</h3>
+                              </div>
+                              
+                            </template>
+                             <b-form>
+                            <b-container>
+                                <b-row>
+                                    <b-col></b-col>
+                                    <b-col md="6">
+                                       
+                                            <!--id -->
+                                         <div :class="{invalid: $v.id.$error}"> 
+                                            <b-form-input                 
+                                                  id="userId"
+                                                  type="text"
+                                                  v-model="userId"
+                                                  @blur="$v.id.$touch()"
+                                                  required
+                                                  placeholder="User ID"
+                                            ></b-form-input>
+                                            <p v-if="!$v.id.minLength">Your user ID must be 10 characters.</p>
+                                            <p v-if="!$v.id.maxLength">Your user ID must be 10 characters.</p>
+                                         </div>
+                                         
+                                    </b-col>
+                                    <b-col></b-col>
+                                    
+                                  </b-row>
+                                <br>
+                                <b-row>
+                                    <b-col></b-col>
+                                    <b-col md="6">
+                                        <div class="d-flex justify-content-center">
+                                            <b-button variant="warning" class="text-light" block @click.prevent="submitEmail"><h5><b>
+                                              Email</b></h5></b-button>
+                                              
+                                        </div>
+                                    </b-col>
+                                    <b-col></b-col>
+                                    
+                                </b-row>
+                                  <br>
+                                <b-row>
+                                  
+                                    <b-col></b-col>
+                                        <b-col md="6">
+                                            <div class="d-flex justify-content-center">
+                                                <b-button to="/verifyNo" variant="warning" class="mt-1 text-light" block @click.prevent="submitPhone"><h5><b>Phone</b></h5></b-button>
+                                            </div>
+                                        </b-col>
+                                    <b-col></b-col>
+                                </b-row>
+                            </b-container>    
+                            </b-form>
+                            
+                        </b-modal></div>
+                        
                       </div>
-                    </div>    
+                        
                 </b-form>
            </b-card>
           </b-col>
@@ -66,7 +130,7 @@ export default {
       return {
         id: '',
         password: '',    
-       
+        userId: '',
       }
   },
   validations:{
@@ -96,6 +160,36 @@ export default {
           password: formData.password
         })).then(res => console.log(res)).catch(error => console.log("From frontend", error))
           
+      },
+      submitEmail(){
+        const formData={
+          userId:this.userId,
+          method:"email"
+        }
+        console.log({
+          userId: formData.userId, 
+          method: formData.method,
+        })
+        axios.post('/reset', JSON.stringify({
+          userId: formData.userId, 
+          method: formData.method,
+        })).then(res => console.log(res)).catch(error => console.log("From frontend", error))
+          
+      },
+      submitPhone(){
+        const formData={
+          userId:this.userId,
+          method:"sms"
+        }
+        console.log({
+          userId: formData.userId, 
+          method: formData.method,
+        })
+        axios.post('/reset', JSON.stringify({
+          userId: formData.userId, 
+          method: formData.method,
+        })).then(res => console.log(res)).catch(error => console.log("From frontend", error))
+          
       }
    
   },  
@@ -109,5 +203,8 @@ export default {
     }
     .invalid input{ 
       border: 1px solid red;
+    }
+    #btn{
+      padding: 150px;
     }
 </style>
