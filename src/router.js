@@ -5,6 +5,9 @@ import Login from './components/Login'
 import Reset from './components/Reset'
 import VerifyNo from './components/VerifyNo'
 import SetPassword from './components/SetPassword'
+import Nav_Drawer from './components/Nav_Drawer'
+import ViewLicense from './components/ViewLicense'
+import View from './components/View'
 //import { verify } from 'crypto';
 
 Vue.use(Router)
@@ -37,6 +40,21 @@ export default new Router({
             path: '/setPassword',
             name: 'setPassword',
             component: SetPassword
+          },
+          {
+            path: '/nav_Drawer',
+            name: 'nav_Drawer',
+            component: Nav_Drawer
+          },
+          {
+            path: '/viewLicense',
+            name: 'viewLicense',
+            component: ViewLicense
+          },
+          {
+            path: '/view',
+            name: 'view',
+            component: View
           }
         
     ]

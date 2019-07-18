@@ -19,11 +19,11 @@
                             </b-form-input>
                
                          </b-input-group>  
-                        <!-- <p v-if="!$v.phone.required">Please enter your phone number</p>-->
+                       
                               
                     </div>
                     <br>
-                    <button class="btn btn-warning btn-block" to="/setPassword" @click.prevent="submitCont">Continue</button>
+                    <button class="btn btn-warning btn-block" to="/reset" @click.prevent="submitCont">Continue</button>
                   </b-form>
            </b-card>
           </b-col>

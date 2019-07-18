@@ -84,6 +84,7 @@
                                     <b-col></b-col>
                                     <b-col md="6">
                                         <div class="d-flex justify-content-center">
+                                          <!--https://www.smashingmagazine.com/2017/11/safe-password-resets-with-json-web-tokens/ -->
                                             <b-button variant="warning" class="text-light" block @click.prevent="submitEmail"><h5><b>
                                               Email</b></h5></b-button>
                                               
@@ -120,8 +121,8 @@
 <script>
 
 import { required, minLength, maxLength} from 'vuelidate/lib/validators'
-import axios from 'axios'
 import qs from 'qs'
+import axios from 'axios'
 
 export default {
  
@@ -151,14 +152,14 @@ export default {
           id:this.id,
           password:this.password,
         }
-        console.log({
-          id: formData.id, 
-          password: formData.password
-        })
-        axios.post('/users/login', JSON.stringify({
-          id: formData.id, 
-          password: formData.password
-        })).then(res => console.log(res)).catch(error => console.log("From frontend", error))
+        //console.log({
+          /*id: formData.id, 
+          password: formData.password*/
+          //this:$store.dispatch('login',{id: formData.id, password: formData.password})
+          
+        //})
+        console.log(formData)
+        this.$store.dispatch('login',{id: formData.id, password: formData.password})
           
       },
       submitEmail(){

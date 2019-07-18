@@ -12,7 +12,7 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify)
 
-//import { store } from './store/store';
+import { store } from './store';
 axios.defaults.baseURL ='https://digicense-api.herokuapp.com' 
 axios.defaults.headers.post['Accepts'] = 'application/json'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -28,7 +28,7 @@ Vue.config.productionTip = false
 //Vue.component('Navbar',Home);
 new Vue({
   router,
-  //store,
+  store,
   qs,
   render: h => h(App),
 }).$mount('#app')

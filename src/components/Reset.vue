@@ -38,7 +38,7 @@
                                     <p v-else-if="!$v.confirmPassword.sameAs">Passwords do not match</p>
                                 </div>
                                 <br>
-                                <div class="d-flex justify-content-center">
+                                <div >
                                     <b-button id="save" @click.prevent="onSubmit" variant="warning" class="text-light" :disabled="$v.password.$invalid || $v.confirmPassword.$invalid">Save</b-button>
                                 </div>
                             </b-form>
