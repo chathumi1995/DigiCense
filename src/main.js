@@ -7,14 +7,17 @@ import Navbar from './components/Navbar.vue'
 import router from './router'
 import Vuelidate from 'vuelidate'
 import axios from 'axios'
+import VueResource from 'vue-resource'
 import qs from 'qs'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 Vue.use(Vuetify)
+Vue.use(VueResource)
 
 import { store } from './store';
 axios.defaults.baseURL ='https://digicense-api.herokuapp.com' 
 axios.defaults.headers.post['Accepts'] = 'application/json'
+//axios.defaults.headers.get['Accepts'] = 'application/json'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 

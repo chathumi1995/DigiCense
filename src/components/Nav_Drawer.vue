@@ -7,7 +7,7 @@
       absolute
     >
 
-          <v-layout column align-center class="grey">
+        <!--  <v-layout column align-center class="grey">
               <v-flex class="mt-4">
                 <v-list-tile-avatar size="100">
                   <img src="../assets/digicense.png" >
@@ -15,7 +15,7 @@
                 <p class=" headline mt-1 text-center">DigiCense</p>
               </v-flex>
               <v-divider></v-divider>
-          </v-layout>
+          </v-layout>-->
       
       
 
@@ -48,7 +48,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title class="subheading">Logout </v-list-tile-title>
+            <v-list-tile-title class="subheading" @click="onLogout">Logout </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -66,14 +66,25 @@
         items: [
           { title: 'View License', icon: 'dashboard',route:'/view' },
           { title: 'Fines', icon: 'question_answer',route:'/fine' },
-          { title: 'Complaints', icon: 'question_answer',route:'/complaint' },
+          { title: 'Complaints', icon: 'question_answer',route:'/complaints' },
+          { title: 'Notification', icon: 'question_answer',route:'/notification' },
           { title: 'History', icon: 'question_answer',route:'/history' },
           { title: 'FAQ', icon: 'question_answer',route:'/faq' },
          
         ],
         right: null
       }
-    }
+    },
+    /*methods:{
+      onLogout(){
+        this.$store.dispatch('logout')
+      }
+    },
+     computed:{
+          auth(){
+            return this.$store.getters.isAuthenticated /*check token*/
+         /* }
+      },*/
   }
 </script>
 

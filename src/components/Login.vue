@@ -30,7 +30,7 @@
                     v-model="password"                                                          
                     required           
                     placeholder="Password"
-                    @input="password_check"
+                   
                   ></b-form-input>  
                   <p v-if="!$v.password.minLength">Must be at least 7 characters</p>                
                 </div>
@@ -152,6 +152,7 @@ export default {
           id:this.id,
           password:this.password,
         }
+        //this.$store.dispatch('fetchUser',formData)
         //console.log({
           /*id: formData.id, 
           password: formData.password*/
@@ -159,8 +160,10 @@ export default {
           
         //})
         console.log(formData)
-        this.$store.dispatch('login',{id: formData.id, password: formData.password})
-          
+        this.$store.dispatch('login',formData)
+       /* .then(res=>{
+            this.$router.push({name:'view'})
+        })*/
       },
       submitEmail(){
         const formData={

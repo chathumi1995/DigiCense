@@ -20,7 +20,10 @@ export default {
   name: 'app',
   components: { 
     appNavbar: Navbar
-  }
+  },
+  /*computed(){
+    this.$store.dispatch('tryAutoLogin')
+  }*/
 }
 </script>
 

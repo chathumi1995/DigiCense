@@ -1,28 +1,39 @@
 <template>
     <div>
-        <v-container class="my-5">
+        <v-container class="my-3">
             <!--<v-layout row wrap>
                 <v-flex xs12 sm6>-->
                     <v-card flat class="mx-5">
                          <h1 class="text-md-center">Digital Driving License</h1>
                         <hr>
                          <v-layout row wrap>
-                                <v-flex xs6 sm6 md4 >
-                                    <v-card class="grey ma-2" height="350px">
-                                        <v-layout row justify-center> <v-flex xs12 sm12><h3 class="text-md-center pt-4"></h3></v-flex></v-layout>
-                                        <v-layout row justify-center class="pa-4"><v-responsive class="px-5"> <img src="../assets/profile.png" ></v-responsive></v-layout>
-                                       
-                                         
-                                       
+                            
+                                     <v-flex xs6 sm6 md4 >
+                                         <v-contain class="mx-5" xs6>
+                                    <v-layout column wrap justify-center >
+                                        <v-card class="grey ma-2" height="200px" width="200px">
+                                        <!--<v-layout row > <v-flex xs12 sm12><h3 class="text-md-center pt-4"></h3></v-flex></v-layout>-->
+                                        <v-layout row justify-center class="pa-4"><v-responsive class="px-5"> <img src="../assets/profile.png" width="160px" ></v-responsive></v-layout>             
                                     </v-card>
+                                    </v-layout>
+                                    <v-layout column wrap justify-center>
+                                        <v-card height="200px" width="200px" class="ma-2">
+                                           <v-layout row justify-center class="pa-4">
+                                            <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
+                                           </v-layout>
+                                        </v-card>
+                                    </v-layout>
+                                    </v-contain>
                                 </v-flex>
+                             
+                               
                                 <v-flex xs12 sm12 md4  >
                                     <v-card-text>
                                            
                                             <table class="table table-bordered table-sptried table-condensed">
                                                  <tr>
                                                      <td class="py-3 text-left" width="165px">Number of the License</td>
-                                                     <td class="py-3 text-left">{{users.license_id}}</td>
+                                                     <td class="py-3 text-left">{{this.users.license_id}}</td>
                                                  </tr>
                                                   <tr>
                                                      <td class="py-3 text-left">Name</td>
@@ -32,13 +43,25 @@
                                                      <td class="pa-3 text-left">Date of birth</td>
                                                      <td class="pa-3 text-left">{{users.bod}}</td>
                                                  </tr>
+                                                  <tr>
+                                                     <td class="pa-3 text-left">Blood Group</td>
+                                                     <td class="pa-3 text-left">{{users.blood_group}}</td>
+                                                 </tr>
                                                   <tr >
                                                      <td class="pa-3 text-left" >Date of issue</td>
-                                                     <td class="pa-3 text-left">{{users.date_of_issue}}</td>
+                                                     <td class="pa-3 text-left">{{this.users.date_of_issue}}</td>
+                                                 </tr>
+                                                  <tr>
+                                                     <td class="pa-3 text-left" >Date of expiry</td>
+                                                     <td class="pa-3 text-left">{{this.users.date_of_expiry}}</td>
                                                  </tr>
                                                   <tr>
                                                      <td class="pa-3 text-left" >restrictions in code form</td>
-                                                     <td class="pa-3 text-left" height="70px">{{users.restrictions}}</td>
+                                                     <td class="pa-3 text-left" height="70px">{{this.users.restrictions}}</td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td class="py-3 text-left" width="165px">Administrative number</td>
+                                                     <td class="py-3 text-left">{{this.users.id}}</td>
                                                  </tr>
                                             </table>
                                                 
@@ -47,30 +70,81 @@
                                     </v-card-text>
                                 </v-flex>
                                 <v-flex xs12 sm12 md4  >
-                                    <v-card-text>
-                                           
-                                            <table class="table table-bordered table-sptried table-condensed">
-                                                <tr>
-                                                     <td class="py-3 text-left" width="165px">Administrative number</td>
-                                                     <td class="py-3 text-left">{{users.id}}</td>
-                                                 </tr>
-                                                  <tr>
-                                                     <td class="py-3 text-left">Permanent place of residence</td>
-                                                     <td class="pa-3 text-left" height="70px">{{users.address}}</td>
-                                                 </tr>
-                                                  <tr>
-                                                     <td class="pa-3 text-left">Blood Group</td>
-                                                     <td class="pa-3 text-left">{{users.blood_group}}</td>
-                                                 </tr>
-                                                  <tr>
-                                                     <td class="pa-3 text-left" >Date of expiry</td>
-                                                     <td class="pa-3 text-left">{{users.date_of_expiry}}</td>
-                                                 </tr>
-                                                  <tr>
-                                                     <td class="pa-3 text-left" >Categories of vehicle</td>
-                                                     <td class="pa-3 text-left" height="70px">{{users.types_of_vehicles}}</td>
-                                                 </tr>
-                                            </table>
+                                    <v-card-text> 
+                                                  
+                                               <table class="table table-bordered table-sptried table-condensed">
+                                                        <tr>
+                                                            <th>Category</th>
+                                                            <th width="100">Issue</th>
+                                                            <th width="100">Expiry</th>
+                                                            <th>restrictions</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>A1</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td>A</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td>B1</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td>B</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>C1</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>C</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>CE</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td>D1</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td>D</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td>DE</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                 </table>    
+
+                                                     <!--<td class="pa-3 text-left" >Categories of vehicle</td>
+                                                     <td class="pa-3 text-left" height="70px">{{users.types_of_vehicles}}</td>-->
+                                               
+                                          
                                                 
                                        
                                             
@@ -83,12 +157,20 @@
                          
 </template>
 <script>
+import QrcodeVue from 'qrcode.vue';
+import { mapState } from 'vuex'
 import axios from 'axios'
-     export default {
+//import {store } from './store';
+//import {mapState} from 'vuex'
+
+     export default {        
         data () {
             return {
-                users:{},
-                /*form:new Form({
+                value: 'https://example.com',
+                //value:id,
+                 size: 160,
+                
+            /*form:new Form({
                     license_id:'',
                     name:'',
                     date_of_expiry:'',
@@ -101,17 +183,25 @@ import axios from 'axios'
                     types_of_vehicles:'',
                     image:'',
                 }),  */
-                
             }
-            
+        },
+        computed:{
+            users(){
+                return !this.$store.getters.user ? false: this.$store.getters.user
+            }
+        },
+         components: {
+            QrcodeVue
         },
         methods:{
-            loaduser: function(){
-                axios.get("https://digicense-api.herokuapp.com/license").then(({data})=>(this.users=data));
-                /*this.users='Loading...';
-                axios.get("https://digicense-api.herokuapp.com/license")
-                .then(function(response){
-                    this.users=response.data[0];
+            
+            
+           loaduser: function(){
+               /* axios.get("https://digicense-api.herokuapp.com/license").then(({data})=>(this.users=data));*/
+             
+              /* axios.get("https://digicense-api.herokuapp.com/license")
+                .then(res=>{
+                    this.users=res.data;
                 })
                 .catch(function(error){
                     this.users='an error occurred.'+error;
@@ -123,7 +213,8 @@ import axios from 'axios'
 
         },
              created: function(){
-                this.loaduser();
+                 this.$store.dispatch('fetchUser')
+                //this.loaduser();
             },
           /*  created:function(){
                 console.log('a is:'+this.a);

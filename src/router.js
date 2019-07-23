@@ -8,6 +8,7 @@ import SetPassword from './components/SetPassword'
 import Nav_Drawer from './components/Nav_Drawer'
 import ViewLicense from './components/ViewLicense'
 import View from './components/View'
+import Complaints from './components/Complaints'
 //import { verify } from 'crypto';
 
 Vue.use(Router)
@@ -55,7 +56,13 @@ export default new Router({
             path: '/view',
             name: 'view',
             component: View
+          },
+          {
+            path: '/complaints',
+            name: 'complaints',
+            component: Complaints
           }
+        
         
     ]
 })

@@ -19,7 +19,7 @@
                                 </v-flex>
                                 <v-flex xs6 sm6 md4  >
                                     <v-card-text>
-                                        
+                                        <p>name is: {{ user.name }}</p>
                                         <v-text-field
                                             v-model="number"
                                             label="Number of the License"
@@ -117,11 +117,14 @@
 </template>
 
 <script>
+import axios from 'axios';
      export default {
         data () {
             return {
-                users:{},
-                form:new Form({
+                /*users:{},
+                form:new Form({*/
+                users:{
+
                     number:'',
                     name:'',
                     expiry:'',
@@ -131,16 +134,48 @@
                     restrictions:'',
                     issue:'',
                     DOB:'',
-                }),  
+                },  
+                user:[],
                 show: false
+               
             }
             
         },
-        methods:{
-            loaduser(){
-                axios.get("").then(({data})=>(this.users=data.data));
-            }
-        }
+       /*created(){
+           axios.get('/license')
+           .then(res=>{
+               console.log(res)
+               const data=res.data
+               const users=[]
+               for(let key in data){
+                   const user =data[key]
+                   user.id =key
+                   users.push(user)
+               }
+               console.log(users)
+               this.name=users[0].name
+           })
+           .catch(error=>console.log(error))
+       }*/
+       methods:{
+           fetch(){
+                this.$http.get('/license')
+                .then(res=>{
+                    return res.json()
+                })
+           .then(res=>{
+               console.log(res)
+               const data=res.data
+               const usersarray=[]
+               for(let key in data){ 
+                   users.push(data[key])
+               }
+               console.log(usersarray)
+               this.user=users
+           })
+           .catch(error=>console.log(error))
+           }
+       }
      }
 
 </script>
