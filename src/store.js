@@ -23,46 +23,39 @@ export const store = new Vuex.Store({
       state.user = userData.user;
       console.log(state.user);
     },
-    fetchUsers(state, user) {
-      state.user = user;
-    }
-  },
-  actions: {
-    login({ commit, dispatch }, authData) {
-      axios
-        .post(
-          "/users/login",
-          JSON.stringify({
-            id: authData.id,
-            password: authData.password,
-            returnSecureToken: true
-          })
-        )
-        .then(res => {
-          commit("setUser", {
-            token: res.data.token,
-            userId: res.data.user.id,
-            user: res.data.user
-          });
-        });
+    mutations: {
+        authUser(state,userData){
+            state.idToken=userData.token
+            state.userId=userData.userId
+            state.isLogged = true
+        },
+        fetchUsers(state,user){
+            state.user=user
+           
+        },
     },
-
-    fetchUser({ commit, state }) {
-      const header = "Authorization: " + "Bearer " + state.idToken;
-      console.log(state.idToken);
-      if (!state.idToken) {
-        return;
-      }
-      globlaAxios
-        .get("https://digicense-api.herokuapp.com/license", { headers: header })
-        .then(res => {
-          state.user = res.data;
-          console.log(res.data);
+    actions: {
+        login ({commit}, authData){
+            return new Promise((resolve, reject) => {
+            const header = 'Content-Type: application/json, Access-Control-Allow-Origin: http//:localhost:8080';
+            axios.post('/users/login', JSON.stringify({
+                id: authData.id, 
+                password: authData.password,
+            })).then(res =>{
+                console.log(res)
+                commit('authUser',{
+                    token:res.data.token,
+                    userId:res.data.user.id,
+            })
+            router.push('/view')
+            resolve(res)
+            })
         })
-        .catch(function(error) {
-          this.user = "an error occurred." + error;
-        });
-      /*.then(res=>{
+    },
+       
+    fetchUser({commit,state}){
+            
+               /*.then(res=>{
                     console.log(res)
                     const data=res.data
                     const users=[]
@@ -74,9 +67,9 @@ export const store = new Vuex.Store({
                     console.log(users)
 
                 })*/
-    }
-    /*auto login*/
-    /*tryAutoLogin({commit}){
+        },
+        /*auto login*/
+        /*tryAutoLogin({commit}){
             const token=localStorage.getItem('token')
             if(!token){
                 return
@@ -92,20 +85,24 @@ export const store = new Vuex.Store({
                 userId: userId
             } )
         },*/
-    /* logout({commit}){
+        logout({commit}){
             commit('clearAuthData')
             router.replace('/login')
-        },*/
-  },
-  getters: {
-    user(state) {
-      return state.user;
+        },
+        
     },
-    isLogged(state) {
-      return state.isLogged;
-    } /*check token*/
-    /* isAuthenticated (state){
-            return state.idToken !==null*/
-    /* }*/
-  }
-});
+    getters:{
+        user(state){
+            return state.user
+        },
+        idToken(state) {
+            return state.idToken
+        },
+        isLogged(state){
+            return state.isLogged
+        },
+        isAuthenticated (state){
+            return state.idToken !==null /*check token*/
+        }
+    }
+})

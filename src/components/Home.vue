@@ -60,8 +60,31 @@
             <h1>How It Works</h1>
           </div>
         </div>
-        <br />
-        <br />
+          
+        <div id="LearnMore">
+              
+           <div class="container" id="how_works">
+              <div class="row" id="how_works_row">
+                <div class="col md-8"><h1>How It Works</h1></div>
+                
+                  
+              </div>
+              <br>
+              <br>
+             <!-- <v-layout row justify-center>
+                <v-flex xs12 md4>
+                <v-responsive class="px-5"> <img src="../assets/pic1.png" width="1000px"></v-responsive>
+                </v-flex>
+                </v-layout>    -->         
+
+              <div class="row">
+                <div class="col-12"><div><v-responsive class="px-5"><img src="../assets/pic1.png" class="responsive" id="how"></v-responsive></div></div>
+                  <!--<div class="col"></div>
+                <div class="col md-12 sm-12"><div><img src="../assets/pic1.png" class="responsive" id="how"></div></div>
+                <div class="col"></div>-->
+                  
+              </div>
+            </div>
 
         <div class="row">
           <div class="col-12">

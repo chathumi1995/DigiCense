@@ -14,12 +14,14 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar.vue";
+import Navbar from './components/Navbar.vue';
+import Nav_DrawerVue from './components/Nav_Drawer.vue';
 export default {
-  name: "app",
-  components: {
-    appNavbar: Navbar
-  }
+  name: 'app',
+  components: { 
+    appNavbar: Navbar,
+    /*appNavDrawer: Nav_Drawer*/
+  },
   /*computed(){
     this.$store.dispatch('tryAutoLogin')
   }*/
