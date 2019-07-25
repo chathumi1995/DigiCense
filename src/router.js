@@ -9,6 +9,8 @@ import Nav_Drawer from './components/Nav_Drawer'
 import ViewLicense from './components/ViewLicense'
 import View from './components/View'
 import Complaints from './components/Complaints'
+import store from './store';
+import Resource from './components/Resources'
 //import { verify } from 'crypto';
 
 Vue.use(Router)
@@ -55,14 +57,41 @@ export default new Router({
           {
             path: '/view',
             name: 'view',
-            component: View
+            component: View,
+            /*beforeEnter(to,from,next){
+              if(store.state.idToken){
+                next()
+              }
+              else{
+                next('/login')
+              }
+            }*/
           },
           {
             path: '/complaints',
             name: 'complaints',
             component: Complaints
-          }
+          },
+          {
+            path: '/resources',
+            name: 'resources',
+            component: Resource,
+            meta: {
+              requiresAuth: true
+            }
+          },
         
         
-    ]
+    ],
+  /*  router.beforeEach((to, from, next) => {
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isLoggedIn) {
+          next()
+          return
+        }
+        next('/login')
+      } else {
+        next()
+      }
+    })*/
 })

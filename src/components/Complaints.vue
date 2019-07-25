@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-content>
-        <v-container fluid fill-height class="my-4">
+        <v-container fluid fill-height class="my-3">
             <v-layout align-center justify-center>
                 <v-flex xs12 sm8 md8>
                     <v-card class=" elevation-12">
@@ -13,23 +13,44 @@
                     </v-toolbar>
                     <v-card-text>
                         <v-form>
-                         <v-flex xs12 sm6 md3>
+                         <v-flex xs12 sm6 >
                              <v-text-field
-                                label="User id"
-                                v-model="id"
+                                label="Email address"
+                                v-model="email"
                                 required
                             ></v-text-field>
                         </v-flex>
-                            <v-textarea
+                        <v-flex xs12 sm6>    
+                            <v-radio-group v-model="radios" :mandatory="false" class="px-5">
+                                <v-radio label="complaint 1" value="c-1"></v-radio>
+                                <v-radio label="complaint 2" value="c-2"></v-radio>
+                                <v-radio label="complaint 3" value="c-3"></v-radio>
+                                <v-radio label="complaint 4" value="c-4"></v-radio>
+                                <v-radio label="complaint 5" value="c-5"></v-radio>
+                                <v-radio label="complaint 6" value="c-6"></v-radio>
+                                <v-radio label="Other" value="c-7" @click="other"></v-radio>
+                                <v-textarea
+                                    outline
+                                    v-model="complaint"
+                                    label="Complaints"
+                            ></v-textarea>
+                                
+                            </v-radio-group>
+                        </v-flex >
+                           
+    
+                           
+                            
+                            <!--<v-textarea
                             outline
                             v-model="complaint"
                             label="Complaints"
-                            ></v-textarea>
+                            ></v-textarea>-->
                         </v-form>
                     </v-card-text>
                     <v-card-actions class="mx-3 mb-3">
                             <v-btn round class="yellow accent-4"  @click.prevent="onComplaint" dark>submit complaint</v-btn>  
-                            <v-btn flat  @click.prevent="onCancle">Cancle</v-btn>                               
+                            <v-btn flat  @click.prevent="onCancel">Cancel</v-btn>                               
                     </v-card-actions>
                    
                       
@@ -54,6 +75,10 @@ export default {
         id: '',
         complaint: null,    
         allComplaints:[],
+    
+        radios: 'c-1',
+        dialog: false,
+    
       }
   },
   methods:{

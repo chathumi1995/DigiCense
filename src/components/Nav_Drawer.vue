@@ -1,7 +1,8 @@
 <template>
   <v-card height="600px">
-    <v-navigation-drawer   
-      
+    <v-navigation-drawer  
+      app 
+      v-if="isLogged"
       v-model="drawer"
       permanent
       absolute
@@ -75,11 +76,17 @@
         right: null
       }
     },
+    computed: {
+          isLogged(){
+            return this.$store.getters.isLogged
+         },
+    }
     /*methods:{
       onLogout(){
         this.$store.dispatch('logout')
       }
     },
+    
      computed:{
           auth(){
             return this.$store.getters.isAuthenticated /*check token*/

@@ -152,6 +152,9 @@ export default {
           id:this.id,
           password:this.password,
         }
+        //.then(res=>{
+         // this.$router.push({name:'view'})
+        //})
         //this.$store.dispatch('fetchUser',formData)
         //console.log({
           /*id: formData.id, 
@@ -160,10 +163,8 @@ export default {
           
         //})
         console.log(formData)
-        this.$store.dispatch('login',formData)
-       /* .then(res=>{
-            this.$router.push({name:'view'})
-        })*/
+        this.$store.dispatch('login',formData).then(() => this.$router.push("/view"))
+       
       },
       submitEmail(){
         const formData={
