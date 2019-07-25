@@ -1,57 +1,10 @@
 <template>
   <div>
-    <div class="container" id="navbar">
-      <div class="row">
-        <Navbar></Navbar>
-      </div>
-    </div>
-    <div class="container" id="carousel">
-      <div class="row">
-        <div class="col">
-          <b-carousel
-            id="carousel-1"
-            v-model="slide"
-            :interval="2000"
-            controls
-            indicators
-            background="#ababab"
-            img-width="500"
-            img-height="200"
-            style="text-shadow: 1px 1px 2px #333;"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-          >
-            <!-- Text slides with image -->
-            <b-carousel-slide
-              caption="First slide"
-              text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-              img-src="https://picsum.photos/1024/480/?image=52"
-            ></b-carousel-slide>
-
-            <!-- Slides with custom text -->
-            <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-              <h1>Hello world!</h1>
-            </b-carousel-slide>
-
-            <!-- Slides with image only -->
-            <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
-
-            <!-- Slides with img slot -->
-            <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-            <b-carousel-slide>
-              <img
-                slot="img"
-                class="d-block img-fluid w-100"
-                width="1024"
-                height="480"
-                src="https://picsum.photos/1024/480/?image=55"
-                alt="image slot"
-              />
-            </b-carousel-slide>
-          </b-carousel>
-        </div>
-      </div>
-    </div>
+    <v-layout class="carousel" height="100%">
+      <v-flex xs12 class="carousel">
+        <carousel />
+      </v-flex>
+    </v-layout>
 
     <div id="LearnMore">
       <div class="container" id="how_works">
@@ -158,12 +111,16 @@
 
 
 <script>
+import Carousel from "@/components/Home/Carousel.vue";
 export default {
   data() {
     return {
       slide: 0,
       sliding: null
     };
+  },
+  components: {
+    Carousel
   },
   methods: {
     onSlideStart() {
@@ -177,52 +134,4 @@ export default {
 </script>
 
 <style>
-#how_works {
-  height: 600px;
-}
-#button_store {
-  background-color: rgb(226, 222, 222, 1);
-  border: 0ch;
-}
-#how_works_row {
-  text-align: center;
-}
-
-#card1 {
-  opacity: 0.4;
-  height: 300px;
-}
-#cards {
-  padding: 50px;
-}
-
-#contact {
-  width: 700px;
-  height: 400px;
-  -ms-flex-align: center;
-}
-
-#playstore {
-  width: 132px;
-  height: 40px;
-}
-#contact1 {
-  height: 500px;
-}
-/*.responsive {
-  width: 100%;
-  height: auto;
-}
-#how{
-  width: 600px;
-  height: 400px;
-}*/
-#footer {
-  width: 100%;
-  height: 100%;
-  /* background: url("https://picsum.photos/1024/480/?image=58") no-repeat center center fixed;*/
-  background-color: rgb(226, 222, 222, 1);
-  background-size: cover;
-  position: relative;
-}
 </style>
