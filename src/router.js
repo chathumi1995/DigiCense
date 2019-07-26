@@ -9,6 +9,7 @@ import ViewLicense from "./components/ViewLicense";
 import View from "./components/Dashboard/View";
 import Complaints from "./components/Complaints";
 import Resource from "./components/Resources";
+import Fine from "./components/Fine";
 //import { verify } from 'crypto';
 
 Vue.use(Router);
@@ -64,6 +65,11 @@ export default new Router({
       path: "/complaints",
       name: "complaints",
       component: Complaints
+    },
+    {
+      path: "/fine",
+      name: "fine",
+      component: Fine
     },
     {
       path: "/resources",
