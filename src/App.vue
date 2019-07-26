@@ -1,22 +1,25 @@
 <template>
   <div id="app">
-    <app-Navbar v-if="isLogged"></app-Navbar>
-    <router-view />
+    <navbar v-if="!isLogged"></navbar>
+    <nav-drawer v-if="isLogged"></nav-drawer>
+    <v-content>
+      <router-view />
+    </v-content>
   </div>
 </template>
 
 <script>
 import Navbar from "./components/Navbar.vue";
-import Nav_DrawerVue from "./components/Nav_Drawer.vue";
+import NavDrawer from "./components/Nav_Drawer.vue";
 export default {
   name: "app",
   components: {
-    appNavbar: Navbar
-    /*appNavDrawer: Nav_Drawer*/
+    Navbar,
+    NavDrawer
   },
   computed: {
-    islogged() {
-      return this.$store.getters.islogged;
+    isLogged() {
+      return this.$store.getters.isLogged;
     }
   }
 };

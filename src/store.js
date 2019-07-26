@@ -2,10 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import router from "./router";
-import globlaAxios from "axios";
-import { resolve, reject } from "q";
-import { DH_UNABLE_TO_CHECK_GENERATOR } from "constants";
-
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -13,32 +9,47 @@ export const store = new Vuex.Store({
     idToken: null,
     userId: null,
     user: null,
+    license: null,
     isLogged: false
   },
   mutations: {
     setUser(state, userData) {
       state.idToken = userData.token;
       state.userId = userData.user.id;
-      state.isLogged = true;
       state.user = userData.user;
+    },
+    setLicense(state, licenseData) {
+      state.license = licenseData;
+      state.isLogged = true;
     }
   },
   actions: {
-    login({ commit }, authData) {
-      return new Promise((resolve, reject) => {
-        axios
-          .post(
-            "/users/login",
-            JSON.stringify({
-              id: authData.id,
-              password: authData.password
+    async login({ commit, state }, authData) {
+      axios
+        .post(
+          "/users/login",
+          JSON.stringify({
+            id: authData.id,
+            password: authData.password
+          })
+        )
+        .then(async res => {
+          await commit("setUser", res.data);
+          const header = {
+            headers: { Authorization: "Bearer " + state.idToken }
+          };
+          console.log(header);
+          axios
+            .get("/license", header)
+            .then(res => {
+              console.log(res);
+              commit("setLicense", res.data);
+              router.push("/view");
             })
-          )
-          .then(res => {
-            commit("setUser", res.data);
-            router.push("/view");
-          });
-      });
+            .catch(function(error) {
+              console.log(error);
+            });
+        });
     }
   },
   getters: {
@@ -51,8 +62,8 @@ export const store = new Vuex.Store({
     isLogged(state) {
       return state.isLogged;
     },
-    isAuthenticated(state) {
-      return state.idToken !== null; /*check token*/
+    license(state) {
+      return state.license;
     }
   }
 });

@@ -12,7 +12,7 @@
               <v-flex xs6 sm6 md4>
                 <v-container class="mx-5" xs6>
                   <v-layout column wrap justify-center>
-                    <v-card class="grey ma-2" height="200px" width="200px">
+                    <v-card class="white" flat height="200px" width="200px">
                       <!--<v-layout row > <v-flex xs12 sm12><h3 class="text-md-center pt-4"></h3></v-flex></v-layout>-->
                       <v-layout row justify-center class="pa-4">
                         <v-responsive class="px-5">
@@ -178,26 +178,11 @@ export default {
   components: {
     QrcodeVue
   },
-  methods: {
-    loaduser: function() {
-      const header = {
-        headers: { Authorization: "Bearer " + this.$store.getters.idToken }
-      };
-      console.log(header);
-      axios
-        .get("/license", header)
-        .then(res => {
-          console.log(res);
-          this.license = res.data;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    }
-  },
+  methods: {},
   created() {
     this.user = this.$store.getters.user;
-    this.loaduser();
-  }
+    this.license = this.$store.getters.license;
+  },
+  mounted() {}
 };
 </script>
