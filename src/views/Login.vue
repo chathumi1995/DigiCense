@@ -1,11 +1,9 @@
 <template>
-  <v-container mt-5 sx12>
-    <v-layout justify-center>
-      <v-flex xs6 dense>
-        <login></login>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-layout class="login" height="100%">
+    <v-flex xs12 class="carousel">
+      <login></login>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -17,3 +15,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.login {
+  height: 100vh;
+}
+</style>

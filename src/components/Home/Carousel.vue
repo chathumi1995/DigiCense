@@ -1,5 +1,5 @@
 <template>
-  <v-carousel hide-controls height="84%">
+  <v-carousel hide-controls height="100%">
     <v-carousel-item height="100%" v-for="(item,i) in items" :key="i" :src="item.src">
       <v-jumbotron color="transparent">
         <v-container fill-height>
@@ -22,10 +22,6 @@ export default {
       items: [
         {
           src:
-            "http://papers.co/wallpaper/papers.co-nv73-car-drive-forest-light-nature-35-3840x2160-4k-wallpaper.jpg"
-        },
-        {
-          src:
             "https://images.wallpaperscraft.com/image/hand_watch_steering_130276_3840x2160.jpg"
         },
         {
@@ -41,3 +37,6 @@ export default {
   }
 };
 </script>
+
+<style>
+</style>

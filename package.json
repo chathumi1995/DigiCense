@@ -35,7 +35,6 @@
   },
   "eslintConfig": {
     "root": true,
-    "browser": true,
     "env": {
       "node": true
     },

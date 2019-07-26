@@ -1,148 +1,38 @@
 <template>
-  <div>
-    <!-- https://laracasts.com/discuss/channels/vue/disable-a-component-on-some-routes?page=1 
-    navihgation hide-->
-    <b-navbar toggleable="lg" type="dark" class="nav-background" v-if="!isLogged">
-      <!--<v-toolbar-side-icon class="grey-text" @click="drawer=!drawer"></v-toolbar-side-icon> -->
-      <img src="../assets/digicense.png" id="logo" />
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="ml-auto">
-          <!--Right aligned nav items-->
-          <b-nav-item to="/">
-            <p class="text-white bg-dark">Home</p>
-          </b-nav-item>
-          <b-nav-item to="#LearnMore">
-            <p class="text-white bg-dark">Learn More</p>
-          </b-nav-item>
-          <b-nav-item to="#">
-            <p class="text-white bg-dark">FAQ</p>
-          </b-nav-item>
-          <b-nav-item to="/login">
-            <p class="text-white bg-dark">Login</p>
-          </b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-    <v-toolbar flat app v-if="isLogged">
-      <v-toolbar-side-icon class="grey-text" @click="drawer=!drawer" v-if="isLogged"></v-toolbar-side-icon>
+  <nav>
+    <v-toolbar flat class="blue-grey darken-4" dark dense fixed>
+      <v-toolbar-title class="text-uppercase">
+        <router-link to="/" tag="span" style="cursor:pointer">
+          <v-avatar size="34" y>
+            <img src="../assets/digicense.png" alt="John" />
+          </v-avatar>
+          <span class="hidden-xs-only">Digicense</span>
+        </router-link>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="text-lowercase" v-for="item in items" :key="item.title">
+        <v-btn flat router :to="item.route">
+          <v-icon left small>{{item.icon}}</v-icon>
+          {{item.title}}
+        </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
-
-    <v-navigation-drawer v-model="drawer" app v-if="isLogged">
-      <v-layout column align-center class="grey">
-        <v-flex class="mt-4">
-          <v-list-tile-avatar size="100">
-            <img src="../assets/digicense.png" />
-          </v-list-tile-avatar>
-          <p class="headline mt-1 text-center">DigiCense</p>
-        </v-flex>
-        <v-divider></v-divider>
-      </v-layout>
-      <v-list class="pt-1" dense>
-        <v-list-tile
-          v-for="item in items"
-          :key="item.title"
-          router
-          :to="item.route"
-          class="pt-2 ml-3"
-        >
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-
-          <v-list-tile-content>
-            <v-list-tile-title class="subheading">{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-      <v-divider class="white--text"></v-divider>
-      <v-list class="pa-3">
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>dashboard</v-icon>
-          </v-list-tile-action>
-
-          <v-list-tile-content>
-            <v-list-tile-title class="subheading" @click="onLogout">Logout</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-  </div>
+  </nav>
 </template>
 
 <script>
+import { scrypt } from "crypto";
 export default {
   data() {
     return {
-      /*https://stackoverflow.com/questions/44185498/re-render-navigation-bar-after-login-on-vuejs*/
-      visibile: false,
-
-      drawer: false,
       items: [
-        { title: "View License", icon: "dashboard", route: "/view" },
-        { title: "Fines", icon: "question_answer", route: "/fine" },
-        { title: "Complaints", icon: "question_answer", route: "/complaints" },
-        {
-          title: "Notification",
-          icon: "question_answer",
-          route: "/notification"
-        },
-        { title: "History", icon: "question_answer", route: "/history" },
-        { title: "FAQ", icon: "question_answer", route: "/faq" }
+        { title: "Home", icon: "dashboard", route: "/" },
+        { title: "Learn More", icon: "dashboard", route: "#" },
+        { title: "FAQ", icon: "question_answer", route: "/faq" },
+        { title: "Login", icon: "question_answer", route: "/login" }
       ],
       right: null
     };
-  },
-  methods: {
-    onLogout() {
-      this.$store.dispatch("logout");
-    }
-  },
-  computed: {
-    isLogged() {
-      return this.$store.getters.isLogged;
-    },
-    auth() {
-      return this.$store.getters.isAuthenticated; /*check token*/
-    }
-  },
-  computed: {
-    isLogged() {
-      return this.$store.getters.isLogged;
-    }
-  } /*check token*/
-  /* computed:{
-          auth(){
-            return this.$store.getters.isAuthenticated*/
-  /*  }
-        }*/
-};
-</script>
-
-  computed: {
-    menuItems() {
-      let menuItems = [
-        { icon: "home", title: "Home", link: "/" },
-        { icon: "star", title: "Learn More", link: "" },
-        { icon: "contact_phone", title: "FAQ", link: "" },
-        { icon: "input", title: "Login", link: "/login" }
-      ];
-      if (this.userIsAuthenticated) {
-        menuItems = [
-          { icon: "home", title: "Institutes", link: "/institutes" },
-          { icon: "input", title: "Sign Out", link: "/signin" }
-        ];
-      }
-      return menuItems;
-    },
-
-    userIsAuthenticated() {
-      return (
-        this.$store.getters.user !== null &&
-        this.$store.getters.user !== undefined
-      );
-    }
   }
 };
 </script>
