@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
     userId: null,
     user: null,
     license: null,
+    fines: [],
     isLogged: false
   },
   mutations: {
@@ -21,6 +22,9 @@ export const store = new Vuex.Store({
     setLicense(state, licenseData) {
       state.license = licenseData;
       state.isLogged = true;
+    },
+    setFines(state, fines) {
+      state.fines = fines;
     }
   },
   actions: {
@@ -34,21 +38,29 @@ export const store = new Vuex.Store({
           })
         )
         .then(async res => {
+          console.log(res);
           await commit("setUser", res.data);
           const header = {
             headers: { Authorization: "Bearer " + state.idToken }
           };
-          console.log(header);
-          axios
+          //fetch license from database
+          await axios
             .get("/license", header)
             .then(res => {
               console.log(res);
               commit("setLicense", res.data);
               router.push("/view");
             })
-            .catch(function(error) {
-              console.log(error);
-            });
+            .catch(function() {});
+
+          //fetch fines from database
+          axios
+            .get("/users/fines", header)
+            .then(res => {
+              console.log(res);
+              commit("setFines", res.data);
+            })
+            .catch(function() {});
         });
     }
   },

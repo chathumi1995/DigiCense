@@ -1,11 +1,11 @@
 <template>
   <div>
-    <v-content>
+    <v-content style="margin-left=300px">
       <v-container fluid fill-height class="my-2">
         <v-layout align-center justify-center>
           <!--<v-layout row wrap>
           <v-flex xs12 sm6>-->
-          <v-card flat class="mx-5">
+          <v-card flat class="mx-5 pa-5">
             <h1 class="text-md-center">Digital Driving License</h1>
             <hr />
             <v-layout row wrap>

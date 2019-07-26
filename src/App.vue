@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <navbar v-if="!isLogged"></navbar>
-    <nav-drawer v-if="isLogged"></nav-drawer>
-    <v-content>
-      <router-view />
-    </v-content>
+    <v-app>
+      <navbar v-if="!isLogged"></navbar>
+      <nav-drawer v-if="isLogged"></nav-drawer>
+      <v-content>
+        <router-view />
+      </v-content>
+    </v-app>
   </div>
 </template>
 

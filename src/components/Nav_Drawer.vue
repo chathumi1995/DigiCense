@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer flat dense fixed>
+  <v-navigation-drawer app flat dense fixed>
     <div class="text-center">
       <img src="../assets/digicense.png" height="100px" margin="30px" alt srcset />
     </div>
