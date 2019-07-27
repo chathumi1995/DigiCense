@@ -5,7 +5,7 @@
         <v-layout align-center justify-center>
           <!--<v-layout row wrap>
           <v-flex xs12 sm6>-->
-          <v-card flat class="pa-3">
+          <v-card flat class="pa-3 transparent">
             <h1 class="text-md-center">Digital Driving License</h1>
             <hr />
             <v-layout row wrap>

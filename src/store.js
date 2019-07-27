@@ -27,10 +27,18 @@ export const store = new Vuex.Store({
     },
     setFines(state, fines) {
       state.fines = fines;
+    },
+    logoutUser(state) {
+      state.user = null;
+      state.idToken = null;
+      state.userId = null;
+      state.license = null;
+      state.fines = [];
+      state.isLogged = false;
     }
   },
   actions: {
-    async login({ commit, state }, authData) {
+    async login({ commit }, authData) {
       axios
         .post(
           "/users/login",
@@ -43,6 +51,17 @@ export const store = new Vuex.Store({
           await commit("setUser", res.data);
           router.push("/view");
         });
+    },
+    logout({ commit, state }) {
+      const header = {
+        headers: { Authorization: "Bearer " + state.idToken }
+      };
+      axios.get("/users/logout", header).then(res => {
+        if (res.status === 200) {
+          commit("logoutUser");
+          router.push("/login");
+        }
+      });
     },
     fetchLicense({ commit, state }) {
       const header = {

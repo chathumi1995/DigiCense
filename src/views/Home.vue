@@ -160,7 +160,7 @@ export default {
 
 .section-block-grey {
   padding: 90px 0px 90px 0px;
-  background-color: #f9f9f9;
+  background-color: #f7ecec;
 }
 
 .serv-section-2 {

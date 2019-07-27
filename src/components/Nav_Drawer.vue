@@ -4,8 +4,14 @@
       <img src="../assets/digicense.png" height="100px" margin="30px" alt srcset />
     </div>
 
-    <v-list class="pt-1" dense>
-      <v-list-tile v-for="item in items" :key="item.title" router :to="item.route" class="pt-2">
+    <v-list class="pt-1" dense nav>
+      <v-list-tile
+        v-for="item in items"
+        :key="item.title"
+        router
+        :to="item.route"
+        class="pt-2 file"
+      >
         <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-tile-action>
@@ -16,14 +22,14 @@
       </v-list-tile>
     </v-list>
     <v-divider class="white--text"></v-divider>
-    <v-list class="pt-3">
-      <v-list-tile to=" ">
+    <v-list class="pt-3 tile" dense nav>
+      <v-list-tile @click="onLogout">
         <v-list-tile-action>
           <v-icon>logout</v-icon>
         </v-list-tile-action>
 
         <v-list-tile-content>
-          <v-list-tile-title class="subheading" @click="onLogout">Logout</v-list-tile-title>
+          <v-list-tile-title class="subheading">Logout</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
@@ -57,12 +63,20 @@ export default {
     isLogged() {
       return this.$store.getters.isLogged;
     }
+  },
+  methods: {
+    onLogout() {
+      this.$store.dispatch("logout");
+    }
   }
 };
 </script>
 
 <style>
-li a:hover {
-  text-decoration: none;
+a {
+  text-decoration: none !important;
+}
+a :hover {
+  color: #f8c822 !important;
 }
 </style>

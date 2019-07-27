@@ -2,7 +2,7 @@
   <div>
     <v-content>
       <v-container class="my-3">
-        <v-container class="px-3" v-for="fine in fines" :key="fine.receipt_number">
+        <v-container class="px-3" v-for="fine in fines" :key="fine._id">
           <form method="post" action="https://sandbox.payhere.lk/pay/checkout">
             <input type="hidden" name="merchant_id" value="1212712" />
             <!-- Replace your Merchant ID -->
@@ -36,7 +36,7 @@
                 </v-flex>
                 <v-flex xs6 sm4 md2 class="pa-2">
                   <div class="caption grey--text">Fine Amount</div>
-                  <div>600</div>
+                  <div>Rs.{{fine.amount}}.00</div>
                 </v-flex>
                 <v-flex xs12 sm4 md2 class="pa-2">
                   <div class="caption grey--text">
