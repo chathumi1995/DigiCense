@@ -5,12 +5,10 @@ import Login from "./components/Login/Login";
 import Reset from "./components/Reset";
 import VerifyNo from "./components/VerifyNo";
 import SetPassword from "./components/SetPassword";
-import ViewLicense from "./components/ViewLicense";
 import View from "./components/Dashboard/View";
-import Complaints from "./components/Complaints";
+import Complaints from "./components/Dashboard/Complaints";
 import Resource from "./components/Resources";
-import Fine from "./components/Fine";
-//import { verify } from 'crypto';
+import Fine from "./components/Dashboard/Fine";
 
 Vue.use(Router);
 
@@ -44,22 +42,9 @@ export default new Router({
       component: SetPassword
     },
     {
-      path: "/viewLicense",
-      name: "viewLicense",
-      component: ViewLicense
-    },
-    {
       path: "/view",
       name: "view",
       component: View
-      /*beforeEnter(to,from,next){
-              if(store.state.idToken){
-                next()
-              }
-              else{
-                next('/login')
-              }
-            }*/
     },
     {
       path: "/complaints",
@@ -80,15 +65,4 @@ export default new Router({
       }
     }
   ]
-  /*  router.beforeEach((to, from, next) => {
-      if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (store.getters.isLoggedIn) {
-          next()
-          return
-        }
-        next('/login')
-      } else {
-        next()
-      }
-    })*/
 });

@@ -3,9 +3,7 @@
     <v-app>
       <navbar v-if="!isLogged"></navbar>
       <nav-drawer v-if="isLogged"></nav-drawer>
-      <v-content>
-        <router-view />
-      </v-content>
+      <router-view />
     </v-app>
   </div>
 </template>

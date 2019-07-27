@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import router from "./router";
+import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -13,6 +14,7 @@ export const store = new Vuex.Store({
     fines: [],
     isLogged: false
   },
+  plugins: [createPersistedState()],
   mutations: {
     setUser(state, userData) {
       state.idToken = userData.token;
@@ -38,30 +40,32 @@ export const store = new Vuex.Store({
           })
         )
         .then(async res => {
-          console.log(res);
           await commit("setUser", res.data);
-          const header = {
-            headers: { Authorization: "Bearer " + state.idToken }
-          };
-          //fetch license from database
-          await axios
-            .get("/license", header)
-            .then(res => {
-              console.log(res);
-              commit("setLicense", res.data);
-              router.push("/view");
-            })
-            .catch(function() {});
-
-          //fetch fines from database
-          axios
-            .get("/users/fines", header)
-            .then(res => {
-              console.log(res);
-              commit("setFines", res.data);
-            })
-            .catch(function() {});
+          router.push("/view");
         });
+    },
+    fetchLicense({ commit, state }) {
+      const header = {
+        headers: { Authorization: "Bearer " + state.idToken }
+      };
+      axios
+        .get("/license", header)
+        .then(res => {
+          commit("setLicense", res.data);
+        })
+        .catch(function() {});
+    },
+    fetchFines({ commit, state }) {
+      const header = {
+        headers: { Authorization: "Bearer " + state.idToken }
+      };
+
+      axios
+        .get("/users/fines", header)
+        .then(res => {
+          commit("setFines", res.data);
+        })
+        .catch(function() {});
     }
   },
   getters: {
@@ -76,6 +80,9 @@ export const store = new Vuex.Store({
     },
     license(state) {
       return state.license;
+    },
+    fines(state) {
+      return state.fines;
     }
   }
 });

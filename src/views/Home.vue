@@ -23,6 +23,7 @@
             <img
               src="http://themebubble.com/demo/marketingpro/wp-content/uploads/2016/10/seo-slide.png "
               alt
+              height="100%"
             />
           </div>
         </div>

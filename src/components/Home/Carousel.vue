@@ -22,7 +22,7 @@ export default {
       items: [
         {
           src:
-            "https://images.wallpaperscraft.com/image/hand_watch_steering_130276_3840x2160.jpg"
+            "https://images.pexels.com/photos/13861/IMG_3496bfree.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
         },
         {
           src:

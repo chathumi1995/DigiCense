@@ -1,20 +1,20 @@
 <template>
   <div>
-    <v-content style="margin-left=300px">
+    <v-content>
       <v-container fluid fill-height class="my-2">
         <v-layout align-center justify-center>
           <!--<v-layout row wrap>
           <v-flex xs12 sm6>-->
-          <v-card flat class="mx-5 pa-5">
+          <v-card flat class="pa-3">
             <h1 class="text-md-center">Digital Driving License</h1>
             <hr />
             <v-layout row wrap>
               <v-flex xs6 sm6 md4>
-                <v-container class="mx-5" xs6>
-                  <v-layout column wrap justify-center>
-                    <v-card class="white" flat height="200px" width="200px">
+                <v-container xs6>
+                  <v-layout column wrap>
+                    <v-card class="transparent" flat height="200px" width="200px">
                       <!--<v-layout row > <v-flex xs12 sm12><h3 class="text-md-center pt-4"></h3></v-flex></v-layout>-->
-                      <v-layout row justify-center class="pa-4">
+                      <v-layout row justify-center class="py-4">
                         <v-responsive class="px-5">
                           <img :src="user.image" width="160px" />
                         </v-responsive>
@@ -22,8 +22,8 @@
                     </v-card>
                   </v-layout>
                   <v-layout column wrap justify-center>
-                    <v-card height="200px" width="200px" class="ma-2">
-                      <v-layout row justify-center class="pa-4">
+                    <v-card height="200px" width="200px" class="my-2">
+                      <v-layout row justify-center class="py-4">
                         <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
                       </v-layout>
                     </v-card>
@@ -81,65 +81,11 @@
                       <th width="100">Expiry</th>
                       <th>restrictions</th>
                     </tr>
-                    <tr>
-                      <td>A1</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>A</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>B1</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>B</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>C1</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>C</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>CE</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>D1</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>D</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>DE</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                    <tr v-for="type in license.types_of_vehicals" :key="type.category">
+                      <td>{{type.category}}</td>
+                      <td>{{type.date_of_issue}}</td>
+                      <td>{{type.date_of_expiry}}</td>
+                      <td>{{type.restrictions}}</td>
                     </tr>
                   </table>
 
@@ -156,33 +102,32 @@
 </template>
 <script>
 import QrcodeVue from "qrcode.vue";
-import { mapState } from "vuex";
-import axios from "axios";
-//import {store } from './store';
-//import {mapState} from 'vuex'
 
 export default {
   data() {
     return {
       value: "https://example.com",
-      size: 160,
-      license: {},
-      user: {}
+      size: 160
     };
   },
   computed: {
-    users() {
+    user() {
       return this.$store.getters.user;
+    },
+    license() {
+      return this.$store.getters.license;
     }
   },
   components: {
     QrcodeVue
   },
-  methods: {},
-  created() {
-    this.user = this.$store.getters.user;
-    this.license = this.$store.getters.license;
+  methods: {
+    fetchLicence() {
+      this.$store.dispatch("fetchLicense");
+    }
   },
-  mounted() {}
+  created() {
+    this.fetchLicence();
+  }
 };
 </script>

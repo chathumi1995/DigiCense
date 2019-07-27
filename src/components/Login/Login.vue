@@ -21,8 +21,6 @@
                         required
                         placeholder="User ID"
                       ></b-form-input>
-                      <p v-if="!$v.id.minLength">Your user ID must be 10 characters.</p>
-                      <p v-if="!$v.id.maxLength">Your user ID must be 10 characters.</p>
                     </div>
                     <br />
 
@@ -36,7 +34,6 @@
                         required
                         placeholder="Password"
                       ></b-form-input>
-                      <p v-if="!$v.password.minLength">Must be at least 7 characters</p>
                     </div>
 
                     <br />
@@ -140,6 +137,7 @@
           <img
             src="http://themebubble.com/demo/marketingpro/wp-content/uploads/2016/10/seo-slide.png "
             alt
+            height="100%"
           />
         </div>
       </div>
@@ -220,5 +218,13 @@ export default {
 }
 #btn {
   padding: 150px;
+}
+button {
+  text-decoration: none !important;
+  color: grey !important;
+}
+button:hover {
+  text-decoration: none !important;
+  color: #f8c822 !important;
 }
 </style>
